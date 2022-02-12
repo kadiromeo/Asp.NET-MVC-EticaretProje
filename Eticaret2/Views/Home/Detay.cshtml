@@ -1,0 +1,137 @@
+﻿@model Eticaret2.Models.Yorum
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<div class="row">
+    <div class="card">
+        <img width="600" height="300" src="@ViewBag.Urun.Foto" alt="Card image cap" class="text-center">
+        @using (Html.BeginForm("KartaEkle", "Kart", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.Id)
+            <div class="card-body">
+                <h5 class="card-title">@ViewBag.Urun.Ad</h5>
+
+
+
+                <p class="card-text">@ViewBag.Urun.Aciklama</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Marka: @ViewBag.Urun.Marka</li>
+                <li class="list-group-item">Stok: @ViewBag.Urun.Stok</li>
+                <li class="list-group-item">Fiyat: @ViewBag.Urun.Fiyat (₺)</li>
+            </ul>
+            <div class="card-body">
+                <button type="submit" class="card-link">Sepete Ekle</button>
+            </div>
+        }
+    </div>
+
+    <div  >
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-2">
+            <h5>Puan <i class="fas fa-star"></i>(@ViewBag.sub)</h5>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+        <div class="col-md-2">
+            <h5>Yorumlar <i class="fas fa-comment"></i> (@ViewBag.sayi)</h5>
+
+        </div>
+    </div>
+
+    <div class="row" style="background-color:lightgray;">
+        <h4>Yorumlar</h4>
+        <br />
+        @{int i = 1; }
+
+
+        @foreach (var item in ViewBag.Urun.Yorums)
+        {
+
+            <div class="col-md-6">
+                @item.Kullanici.Ad @item.Kullanici.Soyad  (@item.Tarih)
+            </div>
+            <script>
+                        $(function () {
+                            $('#@("puanlar"+i)').rateYo({
+                                rating:@item.Puan,
+                                readOnly: true,
+                                multiColor: {
+                                    "startColor": "#FF0000", //RED
+                                    "endColor": "#00FF00"  //GREEN
+                                }
+                            })
+                        })
+            </script>
+            <div class="@("puanlar"+i)"></div>
+
+            <p>@item.Icerik</p>
+            i++;
+            <hr />
+        }
+
+
+        @if (Session["Id"] != null)
+        {
+            using (Html.BeginForm("YorumGonder", "Home", FormMethod.Post, new { @class = "row" }))
+            {
+                <div class="col-md-9">
+
+                </div>
+                <div class="col-md-3">
+                    <div id="PuanVer"></div>
+                    <input type="hidden" id="rating" name="rating" />
+                </div>
+                <div class="col-md-3">
+                    @Html.TextAreaFor(m => m.Icerik, new { @class = "form-control" })
+                </div>
+                <div class="col-md-9">
+
+                </div>
+                <div class="col-md-3">
+                    <div>
+                        <button class="btn btn-info">Yorum Yap</button>
+                        @Html.HiddenFor(model => model.UrunId)
+                        <input type="hidden" value="@Session["Id"]" />
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+
+            <h3 class="alert alert-warning">Yorum Yapmak İçin Giriş Yapmalısınız...!</h3>
+        }
+    </div>
+
+</div>
+<script>
+
+
+    $(function () {
+
+        $("#PuanVer").rateYo({
+
+            rating: 0,
+            numStars: 5,
+            maxValue: 5,
+            fullStar: true,
+            multiColor: {
+
+                "startColor": "#FF0000", //RED
+                "endColor": "#00FF00"  //GREEN
+            },
+            onChange: function (rating, rateYoInstance) {
+                $("#rating").val(rating);
+            }
+        });
+
+    });
+
+
+</script>

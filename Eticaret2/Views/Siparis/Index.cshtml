@@ -1,0 +1,41 @@
+﻿@using Eticaret2.Models
+@model IEnumerable<AdminSiparis>
+    
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Sipariş Listesi</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sipariş Id</th>
+            <th>Sipariş Numarası</th>
+            <th>Sipariş Tarihi</th>
+            <th>Sipariş Durumu</th>
+            <th>Toplam Fiyat(₺)</th>
+            <th>Ürün Sayısı</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.SiparisNo</td>
+            <td>@item.SiparisTarihi</td>
+            <td>@item.SiparisDurum</td>
+            <td>@item.ToplamTutar (₺)</td>
+            <td>@item.Sayi</td>
+            <td> 
+                <a class="btn btn-primary" href="@Html.Action("Sipariş Detay", "Detay", new { id = item.Id })">Sipariş Detay</a>
+            </td>
+
+        </tr>
+
+        }
+
+    </tbody>
+</table>

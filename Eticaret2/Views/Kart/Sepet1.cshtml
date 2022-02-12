@@ -1,0 +1,13 @@
+﻿@model Eticaret2.Models.Kart
+<script src="https://kit.fontawesome.com/3b46233d75.js" crossorigin="anonymous"></script>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        <a href="/Kart/Index" style="list-style:none;">
+           Adet @Model.KartLines.Count()
+        </a>
+        <span> @Model.Toplam().ToString("c")</span>
+
+    </li>
+</ul>
+

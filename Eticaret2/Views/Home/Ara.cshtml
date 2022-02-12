@@ -1,0 +1,24 @@
+﻿@model List<Eticaret2.Models.Urun>
+
+@{
+    ViewBag.Title = "Ara";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+    @if (Model.Count()==0)
+    {
+        <p class="alert alert-warning">Aradığınız kriterde ürün bulunamadı...!</p>
+    }
+    @foreach (var item in Model)
+    {
+<div class="col-md-3">
+    <div class="card">
+        <img width="300" height="300" src="@item.Foto" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@item.Ad</h5>
+            <p>@item.Marka</p>
+            <p>@item.Fiyat (₺)</p>
+            <a href="/Home/Detay/@item.Id" class="btn btn-primary">Detayı Gör...</a>
+        </div>
+    </div>
+</div>
+    }

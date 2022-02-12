@@ -1,0 +1,98 @@
+﻿@model Eticaret2.Models.SiparisDetay
+@{
+    ViewBag.Title = "Detay";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+@if (Session["Email"] != null)
+{
+    <h2>Sipariş Detay</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sipariş Id</th>
+                <th>Sipariş No</th>
+                <th>Sipariş Tarihi</th>
+                <th>Toplam Tutar (₺)</th>
+                <th>Sipariş Durum</th>
+                <th>Adres</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>@Model.SiparisId</td>
+
+                <td>@Model.SiparisNo</td>
+                <td>@Model.SiparisTarih</td>
+                <td>@Model.ToplamTutar (₺)</td>
+                <td>
+                    @if (Model.SiparisDurum == Eticaret2.Models.SiparisDurum.Bekleniyor)
+                    {
+                        <a class="btn btn-danger">Sipariş Bekleniyor</a>
+                    }
+                    else if (Model.SiparisDurum == Eticaret2.Models.SiparisDurum.Bekleniyor)
+                    {
+                        <a class="btn btn-success">Sipariş Tamamlandı</a>
+
+                    }
+                    else if (Model.SiparisDurum == Eticaret2.Models.SiparisDurum.Paketlendi)
+                    {
+                        <a class="btn btn-info">Sipariş Paketlendi</a>
+
+                    }
+                    else if (Model.SiparisDurum == Eticaret2.Models.SiparisDurum.Kargolandı)
+                    {
+                        <a class="btn btn-primary">Sipariş Tamamlandı</a>
+
+                    }
+
+
+                </td>
+                <td>
+                    @Model.Adres <br />
+                    @Model.Sehir <br />
+                    @Model.Ilce <br />
+                    @Model.Mahalle <br />
+                    @Model.PostaKod <br />
+
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sipariş Resim</th>
+                <th>Ürün Adı</th>
+                <th>Toplam Tutar (₺)</th>
+                <th>Sipariş Durum</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.SiparisLines)
+            {
+                <tr>
+                    <td><img src="@item.Foto" width="100"/></td>
+                    <td>@item.UrunAd</td>
+                    <td>@item.Fiyat (₺)</td>
+                    <td>@item.Adet</td>
+                    <td><a class="btn btn-outline-info" href="~/Home/Detay/@item.UrunId">Ürün Detay</a></td>
+
+                </tr>
+
+            }
+
+
+        </tbody>
+    </table>
+
+}
+else
+{
+    Response.Redirect("/Oturum/Giris");
+}

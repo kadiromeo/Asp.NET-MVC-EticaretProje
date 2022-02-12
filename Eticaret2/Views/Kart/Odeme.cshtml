@@ -1,0 +1,80 @@
+﻿@model Eticaret2.Models.AlisverisDetay
+@{
+    ViewBag.Title = "Odeme";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@if (Session["Email"] != null)
+{
+    @ViewBag.Uyari
+    using (Html.BeginForm("Odeme", "Kart", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Sipariş Form</h4>
+            <hr />
+            @ViewBag.Uyari
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="btn btn-success">
+                        @Session["Email"]
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Adres, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Adres, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Adres, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Sehir, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" name="Sehir" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.Sehir, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Ilce, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" name="Ilce" class="form-control" minlenght="6" maxlength="20" />
+                    @Html.ValidationMessageFor(model => model.Ilce, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Mahalle, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" name="Mahalle" class="form-control" minlenght="6" maxlength="20" />
+                    @Html.ValidationMessageFor(model => model.Mahalle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PostaKod, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="text" name="PostaKod" class="form-control" minlenght="6" maxlength="20" />
+                    @Html.ValidationMessageFor(model => model.PostaKod, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+            <div class="form-group mt-3">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Sipariş Tamamla" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    }
+
+}
+else
+{
+    Response.Redirect("/Oturum/Giris");
+}

@@ -1,0 +1,33 @@
+﻿@model Eticaret2.Models.Kullanici
+@{
+    ViewBag.Title = "Giris";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+@using (Html.BeginForm("Giris", "Oturum", FormMethod.Post))
+{
+<div class="row">
+    <div class="col-md-4"></div>
+   
+    <div class="col-md-4 bg-light">
+        <h2>Giris</h2>
+        <hr />
+        @ViewBag.Uyari
+        <div>
+            <label>Email Giriniz</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+        <br />
+        <div>
+            <label>Şifre Giriniz</label>
+            @Html.PasswordFor(m => m.Sifre, new { @class = "form-control" })
+        </div>
+        <br />
+        <div>
+            <button class="btn btn-info">Giriş</button>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+}

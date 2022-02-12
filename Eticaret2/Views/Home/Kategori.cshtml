@@ -1,0 +1,8 @@
+﻿@model List<Eticaret2.Models.Kategori>
+<ul class="list-group">
+    <li class="list-group-item active">Kategoriler</li>
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item"><a href="/Home/KategoriDetay/@item.Id">@item.Ad</a></li>
+    }
+</ul>

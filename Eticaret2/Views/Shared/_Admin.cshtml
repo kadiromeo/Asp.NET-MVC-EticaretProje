@@ -1,0 +1,55 @@
+﻿@{
+    if (Convert.ToInt32(Session["Rol"])!=1)
+    {
+        Response.Redirect("/Oturum/Giris");
+    }
+ }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/Admin/Index">Admin Paneli</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Kategori/Index">Kategoriler</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Urun/Index">Ürünler</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Kullanici/Index">Kullanıcılar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Yorum/Index">Yorumlar</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Siparis/Index">Sipariş</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Home/Index">Siteye Git</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+        <div>
+            @RenderBody()
+        </div>
+
+    </div>
+</body>
+</html>
